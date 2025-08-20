@@ -41,8 +41,8 @@ source venv/bin/activate
 
 # Install/upgrade dependencies
 echo "📦 Installing dependencies..."
-pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
 # Set environment variables based on environment
 case $ENVIRONMENT in
