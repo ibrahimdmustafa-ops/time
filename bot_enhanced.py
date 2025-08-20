@@ -307,18 +307,10 @@ def main():
     application.add_error_handler(error_handler)
 
     # Run bot
-    if WEBHOOK_URL:
-        logger.info(f"🌐 Starting webhook mode on port {PORT}")
-        application.run_webhook(
-            listen="0.0.0.0",
-            port=PORT,
-            url_path=BOT_TOKEN,
-            webhook_url=f"{WEBHOOK_URL}/{BOT_TOKEN}"
-        )
-    else:
-        logger.info("🔄 Starting polling mode...")
-        print("✅ Bot is running... Press Ctrl+C to stop.")
-        application.run_polling(allowed_updates=Update.ALL_TYPES)
+    # Always use polling mode for simplicity
+    logger.info("🔄 Starting polling mode...")
+    print("✅ Bot is running... Press Ctrl+C to stop.")
+    application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
 if __name__ == "__main__":

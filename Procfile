@@ -1,1 +1,1 @@
-web: python bot_enhanced.py
+web: python web_server.py
