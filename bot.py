@@ -1,16 +1,5 @@
-"""
-Telegram Bot: Get Local Time in Major Cities (USA & Canada)
-
-Requirements:
-    pip install python-telegram-bot==20.3 pytz
-
-Usage:
-    1. Replace BOT_TOKEN with your Telegram bot token.
-    2. Run: python bot.py
-    3. Start chat with your bot in Telegram and use /start
-"""
-
 import logging
+import os  # Added to access environment variables
 from datetime import datetime
 import pytz
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -22,7 +11,7 @@ from telegram.ext import (
 )
 
 # ---------------------- CONFIG ----------------------
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"  # <<< Replace with your bot token
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # <<< Reads token from environment variable
 CITIES_PER_PAGE = 6  # number of city buttons per page
 
 # ---------------------- CITY TIMEZONES ----------------------
@@ -206,6 +195,10 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
 # ---------------------- MAIN ----------------------
 def main():
     """Run the bot."""
+    if not BOT_TOKEN:
+        logger.error("BOT_TOKEN is not set. Please set the environment variable.")
+        return
+
     application = Application.builder().token(BOT_TOKEN).build()
 
     application.add_handler(CommandHandler("start", start))
@@ -218,3 +211,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
